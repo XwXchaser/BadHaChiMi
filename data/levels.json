@@ -1,0 +1,73 @@
+{
+  "levels": [
+    {
+      "id": 1001,
+      "name": "初来乍到",
+      "gameType": "fly-hunter",
+      "difficulty": "easy",
+      "config": {
+        "flyCount": 3,
+        "timeLimit": 10
+      },
+      "description": "有 3 只苍蝇在飞，拍死它们！"
+    },
+    {
+      "id": 1002,
+      "name": "苍蝇围攻",
+      "gameType": "fly-hunter",
+      "difficulty": "medium",
+      "config": {
+        "flyCount": 5,
+        "timeLimit": 10
+      },
+      "description": "5 只苍蝇向你飞来！"
+    },
+    {
+      "id": 1003,
+      "name": "苍蝇大军",
+      "gameType": "fly-hunter",
+      "difficulty": "hard",
+      "config": {
+        "flyCount": 8,
+        "timeLimit": 10
+      },
+      "description": "8 只苍蝇！你能全部消灭吗？"
+    },
+    {
+      "id": 2001,
+      "name": "挠痒痒",
+      "gameType": "destroyer",
+      "difficulty": "easy",
+      "config": {
+        "objectType": "sofa",
+        "durability": 60,
+        "timeLimit": 10
+      },
+      "description": "挠挠沙发，留下你的爪痕！"
+    },
+    {
+      "id": 2002,
+      "name": "厕纸飞舞",
+      "gameType": "destroyer",
+      "difficulty": "medium",
+      "config": {
+        "objectType": "toilet-paper",
+        "durability": 80,
+        "timeLimit": 10
+      },
+      "description": "扒拉厕纸，让它满天飞舞！"
+    },
+    {
+      "id": 2003,
+      "name": "破坏大王",
+      "gameType": "destroyer",
+      "difficulty": "hard",
+      "config": {
+        "objectType": "sofa",
+        "durability": 120,
+        "timeLimit": 10
+      },
+      "description": "疯狂挠沙发，成为破坏大王！"
+    }
+  ]
+}

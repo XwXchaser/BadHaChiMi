@@ -58,6 +58,7 @@ BadHaChiMi/
 ├── index.html              # 主页面
 ├── js/
 │   ├── main.js            # 入口文件
+│   ├── level-manager.js   # 关卡管理器
 │   ├── game-manager.js    # 游戏管理器
 │   ├── paw-input.js       # 触摸输入处理
 │   ├── utils.js           # 工具函数
@@ -66,6 +67,9 @@ BadHaChiMi/
 │       └── destroyer.js   # 破坏大王游戏
 ├── styles/
 │   └── main.css           # 样式文件
+├── data/                  # 配置数据
+│   ├── levels.json        # 关卡配置文件
+│   └── LEVEL_CONFIG_GUIDE.md  # 配置指南
 ├── www/                   # 构建输出目录
 ├── android/               # Android 原生项目
 ├── capacitor.config.json  # Capacitor 配置
@@ -87,6 +91,16 @@ BadHaChiMi/
 - [ ] 更多迷你游戏关卡
 - [ ] 游戏音效资源优化
 - [ ] 成就系统
+
+## 📊 关卡配置
+
+项目使用 [`data/levels.json`](data/levels.json) 文件管理关卡数据，支持自定义：
+- **关卡编号** (id): 唯一标识符
+- **关卡名** (name): 显示名称
+- **难度等级** (difficulty): easy/medium/hard
+- **游戏配置** (config): 具体游戏参数
+
+详细配置指南请参考 [`data/LEVEL_CONFIG_GUIDE.md`](data/LEVEL_CONFIG_GUIDE.md)
 
 ## 📄 许可证
 
