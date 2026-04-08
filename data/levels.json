@@ -68,6 +68,42 @@
         "timeLimit": 10
       },
       "description": "疯狂挠沙发，成为破坏大王！"
+    },
+    {
+      "id": 3001,
+      "name": "拉卷纸",
+      "gameType": "toilet-paper",
+      "difficulty": "easy",
+      "config": {
+        "objectType": "toilet-paper",
+        "durability": 80,
+        "timeLimit": 10
+      },
+      "description": "向下划动扒拉卷纸，让它散落一地！"
+    },
+    {
+      "id": 3002,
+      "name": "卷纸瀑布",
+      "gameType": "toilet-paper",
+      "difficulty": "medium",
+      "config": {
+        "objectType": "toilet-paper",
+        "durability": 100,
+        "timeLimit": 10
+      },
+      "description": "更多的卷纸等着你去拉！"
+    },
+    {
+      "id": 3003,
+      "name": "卷纸终结者",
+      "gameType": "toilet-paper",
+      "difficulty": "hard",
+      "config": {
+        "objectType": "toilet-paper",
+        "durability": 120,
+        "timeLimit": 10
+      },
+      "description": "终极挑战！把卷纸全部拉光！"
     }
   ]
 }

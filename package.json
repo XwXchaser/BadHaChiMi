@@ -4,7 +4,7 @@
   "description": "猫咪的十分钟 - 超休闲猫咪捣蛋小游戏",
   "main": "index.js",
   "scripts": {
-    "build": "if not exist www mkdir www && copy index.html www\\ && xcopy /E /I /Y js www\\js && xcopy /E /I /Y styles www\\styles && xcopy /E /I /Y data www\\data",
+    "build": "if not exist www mkdir www && copy index.html www\\ && xcopy /E /I /Y js www\\js && xcopy /E /I /Y styles www\\styles && xcopy /E /I /Y data www\\data && xcopy /E /I /Y assets www\\assets",
     "sync": "npx cap sync android",
     "open": "npx cap open android",
     "build:android": "npm run build && npm run sync"

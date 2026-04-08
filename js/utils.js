@@ -38,30 +38,59 @@ window.Utils = {
     },
 
     /**
-     * 创建音效（使用 Web Audio API）
+     * 获取或创建 AudioContext 单例
+     */
+    getAudioContext: function() {
+        if (!this._audioContext) {
+            const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+            if (AudioContextClass) {
+                try {
+                    this._audioContext = new AudioContextClass();
+                } catch (e) {
+                    console.warn('AudioContext not supported or failed to initialize');
+                    this._audioContext = null;
+                }
+            }
+        }
+        return this._audioContext;
+    },
+    
+    /**
+     * 播放音效（使用 Web Audio API）
      */
     playSound: function(type) {
+        const audioContext = this.getAudioContext();
+        if (!audioContext) return;
+        
+        // 如果 AudioContext 被挂起，尝试恢复
+        if (audioContext.state === 'suspended') {
+            audioContext.resume().catch(function(e) {
+                console.warn('Failed to resume AudioContext:', e);
+            });
+        }
+        
         try {
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
             const oscillator = audioContext.createOscillator();
             const gainNode = audioContext.createGain();
             
             oscillator.connect(gainNode);
             gainNode.connect(audioContext.destination);
             
+            const now = audioContext.currentTime;
+            
             switch (type) {
                 case 'tap':
                     oscillator.frequency.value = 800;
-                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-                    oscillator.start(audioContext.currentTime);
-                    oscillator.stop(audioContext.currentTime + 0.1);
+                    gainNode.gain.setValueAtTime(0.3, now);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+                    oscillator.start(now);
+                    oscillator.stop(now + 0.1);
                     break;
                 case 'success':
                     oscillator.frequency.value = 523.25;
-                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-                    oscillator.start(audioContext.currentTime);
-                    oscillator.stop(audioContext.currentTime + 0.1);
+                    gainNode.gain.setValueAtTime(0.3, now);
+                    oscillator.start(now);
+                    oscillator.stop(now + 0.1);
                     
                     setTimeout(() => {
                         const osc2 = audioContext.createOscillator();
@@ -77,22 +106,22 @@ window.Utils = {
                 case 'fail':
                     oscillator.frequency.value = 200;
                     oscillator.type = 'sawtooth';
-                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
-                    oscillator.start(audioContext.currentTime);
-                    oscillator.stop(audioContext.currentTime + 0.3);
+                    gainNode.gain.setValueAtTime(0.3, now);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+                    oscillator.start(now);
+                    oscillator.stop(now + 0.3);
                     break;
                 case 'scratch':
                     oscillator.frequency.value = 400;
                     oscillator.type = 'square';
-                    gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
-                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
-                    oscillator.start(audioContext.currentTime);
-                    oscillator.stop(audioContext.currentTime + 0.05);
+                    gainNode.gain.setValueAtTime(0.2, now);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
+                    oscillator.start(now);
+                    oscillator.stop(now + 0.05);
                     break;
             }
         } catch (e) {
-            console.log('Audio error:', e);
+            console.warn('Audio playback error:', e);
         }
     },
 
