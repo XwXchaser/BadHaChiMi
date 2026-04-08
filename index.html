@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>猫咪的十分钟</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <!-- 强制竖屏提示层 -->
+    <div id="rotate-hint" class="rotate-hint">
+        <div class="rotate-icon">📱</div>
+        <p>请将手机旋转为竖屏模式</p>
+    </div>
+
+    <!-- 主容器 -->
+    <div id="app" class="app-container">
+        <!-- 购物清单界面 -->
+        <div id="shopping-list" class="screen active">
+            <div class="list-header">
+                <h1>📝 主人的购物清单</h1>
+                <button class="refresh-btn" id="refresh-btn" title="刷新关卡状态">🔄</button>
+            </div>
+            <div class="list-container" id="list-container">
+                <!-- 动态生成关卡列表 -->
+            </div>
+        </div>
+
+        <!-- 游戏界面 -->
+        <div id="game-screen" class="screen">
+            <div class="game-ui">
+                <div class="instruction-bubble" id="instruction">
+                    <!-- 指令内容 -->
+                </div>
+                <div class="timer-bar">
+                    <div class="timer-fill" id="timer-fill"></div>
+                    <div class="timer-icon">🐟</div>
+                </div>
+                <div class="progress-display" id="progress-display">
+                    <!-- 进度显示 -->
+                </div>
+            </div>
+            <div class="game-area" id="game-area">
+                <!-- 游戏内容区域 -->
+            </div>
+        </div>
+
+        <!-- 成功结算界面 -->
+        <div id="success-screen" class="screen">
+            <div class="polaroid">
+                <div class="polaroid-image" id="success-image">
+                    <!-- 成功图片 -->
+                </div>
+                <div class="polaroid-caption" id="success-caption">任务完成!</div>
+            </div>
+            <p class="tap-hint">点击返回清单</p>
+        </div>
+
+        <!-- 失败结算界面 -->
+        <div id="fail-screen" class="screen">
+            <div class="fail-cg" id="fail-cg">
+                <div class="human-hand">🖐️</div>
+                <div class="fail-text">被发现了...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 猫爪特效容器 -->
+    <div id="paw-effects" class="paw-effects"></div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/paw-input.js"></script>
+    <script src="js/game-manager.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
