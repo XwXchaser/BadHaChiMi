@@ -1,0 +1,36 @@
+# Node modules
+node_modules/
+
+# Android Studio
+.idea/
+*.iml
+.gradle/
+local.properties
+
+# Android build outputs
+android/build/
+android/app/build/
+android/capacitor-cordova-android-plugins/build/
+
+# WWW directory (generated)
+www/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Capacitor
+capacitor.config.json
+
+# Build artifacts
+*.apk
+*.aab
+*.keystore
+!android/app/src/main/res/
