@@ -1,0 +1,525 @@
+/* 基础样式重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Segoe UI Emoji', 'Noto Color Emoji', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: #1a1a2e;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* 确保 emoji 正常显示 */
+.fly, .sofa, .toilet-paper, .polaroid-image, .human-hand {
+    font-family: 'Segoe UI Emoji', 'Noto Color Emoji', 'Apple Color Emoji', sans-serif;
+}
+
+/* 强制竖屏提示 */
+.rotate-hint {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #1a1a2e;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
+    color: #fff;
+}
+
+.rotate-hint .rotate-icon {
+    font-size: 80px;
+    margin-bottom: 20px;
+    animation: rotate-anim 2s infinite;
+}
+
+@keyframes rotate-anim {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-90deg); }
+    75% { transform: rotate(90deg); }
+}
+
+/* 横屏时显示提示 */
+@media screen and (orientation: landscape) {
+    .rotate-hint {
+        display: flex;
+    }
+}
+
+/* 应用容器 */
+.app-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 屏幕通用样式 */
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+}
+
+.screen.active {
+    display: flex;
+}
+
+/* 购物清单界面 */
+#shopping-list {
+    background: linear-gradient(180deg, #f5f0e6 0%, #e8e0d0 100%);
+    overflow: hidden;
+}
+
+.list-header {
+    padding: 20px;
+    text-align: center;
+    background: rgba(0,0,0,0.1);
+    border-bottom: 2px dashed #8b7355;
+    position: relative;
+}
+
+.list-header h1 {
+    font-size: 24px;
+    color: #4a3728;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    margin: 0;
+}
+
+/* 刷新按钮 */
+.refresh-btn {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: 2px solid #4a3728;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.refresh-btn:active {
+    transform: translateY(-50%) scale(0.9);
+    background: rgba(0,0,0,0.1);
+}
+
+.list-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 10 L90 10 M10 30 L90 30 M10 50 L90 50 M10 70 L90 70 M10 90 L90 90' stroke='%23d0c8b8' stroke-width='1' fill='none'/%3E%3C/svg%3E");
+}
+
+/* 清单条目 */
+.list-item {
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+
+.list-item:active {
+    transform: scale(0.98);
+}
+
+.list-item.locked {
+    opacity: 0.5;
+    background: #e0e0e0;
+    cursor: not-allowed;
+}
+
+.list-item.locked::after {
+    content: '🔒';
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.list-item.completed {
+    background: #f0f0f0;
+}
+
+.list-item.completed .item-text {
+    text-decoration: line-through;
+    color: #c0392b;
+}
+
+.list-item .item-text {
+    font-size: 18px;
+    color: #2c3e50;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+.list-item .item-difficulty {
+    font-size: 12px;
+    color: #7f8c8d;
+    margin-top: 5px;
+}
+
+.list-item.hard-mode {
+    background: #fff5f5;
+    border: 2px solid #e74c3c;
+}
+
+.list-item.hard-mode .item-difficulty {
+    color: #e74c3c;
+}
+
+/* 游戏界面 */
+#game-screen {
+    background: #2c3e50;
+}
+
+.game-ui {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    pointer-events: none;
+}
+
+.instruction-bubble {
+    background: #fff;
+    border: 3px solid #333;
+    border-radius: 20px;
+    padding: 15px 25px;
+    margin: 20px auto;
+    max-width: 80%;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    animation: bubble-pop 0.3s ease-out;
+}
+
+@keyframes bubble-pop {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.timer-bar {
+    position: relative;
+    width: 200px;
+    height: 30px;
+    margin: 10px auto;
+    background: #34495e;
+    border-radius: 15px;
+    border: 3px solid #fff;
+    overflow: hidden;
+}
+
+.timer-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #e74c3c, #f39c12, #27ae60);
+    width: 100%;
+    transition: width 0.1s linear;
+}
+
+.timer-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+}
+
+.progress-display {
+    text-align: center;
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.game-area {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    touch-action: none;
+}
+
+/* 游戏区域背景 */
+.game-area.living-room {
+    background: linear-gradient(180deg, #87CEEB 0%, #90EE90 50%, #8B4513 100%);
+}
+
+.game-area.kitchen {
+    background: linear-gradient(180deg, #FFE4B5 0%, #DEB887 100%);
+}
+
+.game-area.bathroom {
+    background: linear-gradient(180deg, #E0FFFF 0%, #AFEEEE 100%);
+}
+
+/* 苍蝇游戏元素 */
+.fly {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    font-size: 35px;
+    cursor: pointer;
+    transition: transform 0.1s;
+    z-index: 50;
+}
+
+.fly:active {
+    transform: scale(0.8);
+}
+
+.fly.dead {
+    filter: grayscale(100%);
+    opacity: 0.6;
+}
+
+.fly-splat {
+    position: absolute;
+    font-size: 30px;
+    pointer-events: none;
+    animation: splat-fade 1s forwards;
+}
+
+@keyframes splat-fade {
+    0% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(0.5); }
+}
+
+/* 破坏游戏元素 */
+.destroy-object {
+    position: absolute;
+    pointer-events: none; /* 让划动事件穿透到游戏区域 */
+    transition: opacity 0.3s, filter 0.3s;
+}
+
+.destroy-object img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.claw-mark {
+    position: absolute;
+    pointer-events: none;
+    animation: claw-appear 0.2s ease-out forwards;
+}
+
+@keyframes claw-appear {
+    0% { transform: scale(0) rotate(-20deg); opacity: 0; }
+    100% { transform: scale(1) rotate(-20deg); opacity: 0.8; }
+}
+
+.scratch-mark {
+    position: absolute;
+    font-size: 30px;
+    pointer-events: none;
+    opacity: 0.8;
+    animation: scratch-appear 0.2s ease-out;
+}
+
+@keyframes scratch-appear {
+    0% { transform: scale(0) rotate(-20deg); opacity: 0; }
+    100% { transform: scale(1) rotate(-20deg); opacity: 0.8; }
+}
+
+.toilet-paper {
+    position: absolute;
+    font-size: 80px;
+    left: 50%;
+    top: 30%;
+    transform: translateX(-50%);
+}
+
+.sofa {
+    position: absolute;
+    font-size: 120px;
+    left: 50%;
+    top: 40%;
+    transform: translateX(-50%);
+}
+
+.damage-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M20,40 Q30,30 40,40 T60,40 T80,40' stroke='%238B4513' stroke-width='2' fill='none' opacity='0.5'/%3E%3C/svg%3E");
+    background-size: 100px 100px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* 成功结算界面 */
+#success-screen {
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+.polaroid {
+    background: #fff;
+    padding: 15px 15px 40px 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transform: rotate(-5deg);
+    animation: polaroid-appear 0.5s ease-out;
+}
+
+@keyframes polaroid-appear {
+    0% { transform: scale(0) rotate(-180deg); opacity: 0; }
+    100% { transform: scale(1) rotate(-5deg); opacity: 1; }
+}
+
+.polaroid-image {
+    width: 250px;
+    height: 250px;
+    background: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 100px;
+    border: 1px solid #ddd;
+}
+
+.polaroid-caption {
+    text-align: center;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-size: 18px;
+    color: #333;
+    margin-top: 15px;
+}
+
+.tap-hint {
+    color: #fff;
+    margin-top: 20px;
+    font-size: 14px;
+    opacity: 0.7;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* 失败结算界面 */
+#fail-screen {
+    background: #000;
+    justify-content: center;
+    align-items: center;
+}
+
+.fail-cg {
+    text-align: center;
+    animation: fail-appear 0.5s ease-out;
+}
+
+@keyframes fail-appear {
+    0% { opacity: 0; transform: scale(0.5); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+.human-hand {
+    font-size: 150px;
+    animation: hand-grab 0.3s ease-in-out infinite alternate;
+}
+
+@keyframes hand-grab {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); }
+}
+
+.fail-text {
+    color: #e74c3c;
+    font-size: 24px;
+    margin-top: 20px;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+/* 猫爪特效 */
+.paw-effects {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.paw-print {
+    position: absolute;
+    font-size: 40px;
+    animation: paw-appear 0.3s ease-out forwards;
+}
+
+@keyframes paw-appear {
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.8; }
+}
+
+.paw-trail {
+    position: absolute;
+    font-size: 30px;
+    opacity: 0.6;
+    animation: trail-fade 0.5s ease-out forwards;
+}
+
+@keyframes trail-fade {
+    0% { opacity: 0.6; transform: scale(1); }
+    100% { opacity: 0; transform: scale(0.5); }
+}
+
+/* 响应式调整 */
+@media screen and (max-width: 375px) {
+    .list-header h1 {
+        font-size: 20px;
+    }
+    
+    .list-item .item-text {
+        font-size: 16px;
+    }
+    
+    .instruction-bubble {
+        font-size: 16px;
+        padding: 12px 18px;
+    }
+    
+    .polaroid-image {
+        width: 200px;
+        height: 200px;
+        font-size: 80px;
+    }
+}
