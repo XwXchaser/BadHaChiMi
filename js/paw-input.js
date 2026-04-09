@@ -14,6 +14,9 @@ window.PawInput = (function() {
     PawInput.prototype.init = function() {
         var self = this;
         
+        // 记录滑动起点
+        this.swipeStart = null;
+        
         // 触摸事件
         this.container.addEventListener('touchstart', function(e) {
             e.preventDefault();
@@ -21,6 +24,7 @@ window.PawInput = (function() {
             self.touchId = touch.identifier;
             self.isPressing = true;
             self.lastPosition = { x: touch.clientX, y: touch.clientY };
+            self.swipeStart = { x: touch.clientX, y: touch.clientY };
             
             self.showPawPrint(touch.clientX, touch.clientY, 'tap');
             Utils.playSound('tap');
@@ -52,7 +56,7 @@ window.PawInput = (function() {
             var dy = currentY - self.lastPosition.y;
             var distance = Math.sqrt(dx * dx + dy * dy);
             
-            if (distance > 20) {
+            if (distance > 10) {
                 self.showPawTrail(currentX, currentY, dx, dy);
                 Utils.playSound('scratch');
                 Utils.vibrate(20);
@@ -63,7 +67,11 @@ window.PawInput = (function() {
                         y: currentY,
                         dx: dx,
                         dy: dy,
-                        distance: distance
+                        distance: distance,
+                        startX: self.swipeStart.x,
+                        startY: self.swipeStart.y,
+                        endX: currentX,
+                        endY: currentY
                     });
                 }
                 
@@ -95,6 +103,7 @@ window.PawInput = (function() {
         this.container.addEventListener('mousedown', function(e) {
             self.isPressing = true;
             self.lastPosition = { x: e.clientX, y: e.clientY };
+            self.swipeStart = { x: e.clientX, y: e.clientY };
             
             self.showPawPrint(e.clientX, e.clientY, 'tap');
             Utils.playSound('tap');
@@ -114,7 +123,7 @@ window.PawInput = (function() {
             var dy = currentY - self.lastPosition.y;
             var distance = Math.sqrt(dx * dx + dy * dy);
             
-            if (distance > 20) {
+            if (distance > 10) {
                 self.showPawTrail(currentX, currentY, dx, dy);
                 Utils.playSound('scratch');
                 
@@ -124,7 +133,11 @@ window.PawInput = (function() {
                         y: currentY,
                         dx: dx,
                         dy: dy,
-                        distance: distance
+                        distance: distance,
+                        startX: self.swipeStart.x,
+                        startY: self.swipeStart.y,
+                        endX: currentX,
+                        endY: currentY
                     });
                 }
                 

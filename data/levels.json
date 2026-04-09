@@ -1,109 +1,65 @@
 {
+  "chapters": [
+    { "id": 1, "name": "客厅篇", "cardImage": "assets/UI_StageSelect_Chapter1.png" },
+    { "id": 2, "name": "厨房篇", "cardImage": "assets/UI_StageSelect_Chapter2.png" },
+    { "id": 3, "name": "卧室篇", "cardImage": "assets/UI_StageSelect_Chapter3.png" },
+    { "id": 4, "name": "卫生间篇", "cardImage": "assets/UI_StageSelect_Chapter4.png" },
+    { "id": 5, "name": "阳台篇", "cardImage": "assets/UI_StageSelect_Chapter5.png" }
+  ],
   "levels": [
-    {
-      "id": 1001,
-      "name": "初来乍到",
-      "gameType": "fly-hunter",
-      "difficulty": "easy",
-      "config": {
-        "flyCount": 3,
-        "timeLimit": 10
-      },
-      "description": "有 3 只苍蝇在飞，拍死它们！"
-    },
-    {
-      "id": 1002,
-      "name": "苍蝇围攻",
-      "gameType": "fly-hunter",
-      "difficulty": "medium",
-      "config": {
-        "flyCount": 5,
-        "timeLimit": 10
-      },
-      "description": "5 只苍蝇向你飞来！"
-    },
-    {
-      "id": 1003,
-      "name": "苍蝇大军",
-      "gameType": "fly-hunter",
-      "difficulty": "hard",
-      "config": {
-        "flyCount": 8,
-        "timeLimit": 10
-      },
-      "description": "8 只苍蝇！你能全部消灭吗？"
-    },
-    {
-      "id": 2001,
-      "name": "挠痒痒",
-      "gameType": "destroyer",
-      "difficulty": "easy",
-      "config": {
-        "objectType": "sofa",
-        "durability": 60,
-        "timeLimit": 10
-      },
-      "description": "挠挠沙发，留下你的爪痕！"
-    },
-    {
-      "id": 2002,
-      "name": "厕纸飞舞",
-      "gameType": "destroyer",
-      "difficulty": "medium",
-      "config": {
-        "objectType": "toilet-paper",
-        "durability": 80,
-        "timeLimit": 10
-      },
-      "description": "扒拉厕纸，让它满天飞舞！"
-    },
-    {
-      "id": 2003,
-      "name": "破坏大王",
-      "gameType": "destroyer",
-      "difficulty": "hard",
-      "config": {
-        "objectType": "sofa",
-        "durability": 120,
-        "timeLimit": 10
-      },
-      "description": "疯狂挠沙发，成为破坏大王！"
-    },
-    {
-      "id": 3001,
-      "name": "拉卷纸",
-      "gameType": "toilet-paper",
-      "difficulty": "easy",
-      "config": {
-        "objectType": "toilet-paper",
-        "durability": 80,
-        "timeLimit": 10
-      },
-      "description": "向下划动扒拉卷纸，让它散落一地！"
-    },
-    {
-      "id": 3002,
-      "name": "卷纸瀑布",
-      "gameType": "toilet-paper",
-      "difficulty": "medium",
-      "config": {
-        "objectType": "toilet-paper",
-        "durability": 100,
-        "timeLimit": 10
-      },
-      "description": "更多的卷纸等着你去拉！"
-    },
-    {
-      "id": 3003,
-      "name": "卷纸终结者",
-      "gameType": "toilet-paper",
-      "difficulty": "hard",
-      "config": {
-        "objectType": "toilet-paper",
-        "durability": 120,
-        "timeLimit": 10
-      },
-      "description": "终极挑战！把卷纸全部拉光！"
-    }
+    { "id": 1, "chapter": 1, "name": "客厅探险 1", "gameType": "fly", "instruction": "快速点击消灭苍蝇！", "listText": "苍蝇危机", "status": "unlocked", "difficulty": 1, "config": { "flyCount": 3, "timeLimit": 10 } },
+    { "id": 2, "chapter": 1, "name": "客厅探险 2", "gameType": "sofa", "instruction": "滑动抓挠沙发！", "listText": "挠痒痒", "status": "locked", "difficulty": 1, "config": { "durability": 60, "timeLimit": 10 } },
+    { "id": 3, "chapter": 1, "name": "客厅探险 3", "gameType": "paper", "instruction": "向下划动扒拉厕纸！", "listText": "厕纸飞舞", "status": "locked", "difficulty": 1, "config": { "durability": 60, "timeLimit": 10 } },
+    { "id": 4, "chapter": 1, "name": "客厅探险 4", "gameType": "cup", "instruction": "滑动将杯子推落桌面！", "listText": "推杯子", "status": "locked", "difficulty": 1, "config": { "cupCount": 3, "timeLimit": 10 } },
+    { "id": 5, "chapter": 1, "name": "客厅探险 5", "gameType": "bubble", "instruction": "点击戳破所有气泡！", "listText": "捏泡泡", "status": "locked", "difficulty": 1, "config": { "bubbleCount": 40, "timeLimit": 20 } },
+    { "id": 6, "chapter": 1, "name": "客厅探险 6", "gameType": "fly", "instruction": "快速点击消灭苍蝇！", "listText": "苍蝇围攻", "status": "locked", "difficulty": 2, "config": { "flyCount": 5, "timeLimit": 10 } },
+    { "id": 7, "chapter": 1, "name": "客厅探险 7", "gameType": "sofa", "instruction": "滑动抓挠沙发！", "listText": "沙发破坏", "status": "locked", "difficulty": 2, "config": { "durability": 80, "timeLimit": 10 } },
+    { "id": 8, "chapter": 1, "name": "客厅探险 8", "gameType": "paper", "instruction": "向下划动扒拉厕纸！", "listText": "卷纸瀑布", "status": "locked", "difficulty": 2, "config": { "durability": 80, "timeLimit": 10 } },
+    { "id": 9, "chapter": 1, "name": "客厅探险 9", "gameType": "cup", "instruction": "滑动将杯子推落桌面！", "listText": "杯子滑落", "status": "locked", "difficulty": 2, "config": { "cupCount": 4, "timeLimit": 10 } },
+    { "id": 10, "chapter": 1, "name": "客厅探险 10", "gameType": "bubble", "instruction": "点击戳破所有气泡！", "listText": "泡泡挑战", "status": "locked", "difficulty": 2, "config": { "bubbleCount": 60, "timeLimit": 20 } },
+
+    { "id": 11, "chapter": 2, "name": "厨房探险 1", "gameType": "fly", "instruction": "快速点击消灭苍蝇！", "listText": "厨房苍蝇", "status": "locked", "difficulty": 1, "config": { "flyCount": 3, "timeLimit": 10 } },
+    { "id": 12, "chapter": 2, "name": "厨房探险 2", "gameType": "sofa", "instruction": "滑动抓挠沙发！", "listText": "厨房挠痒", "status": "locked", "difficulty": 1, "config": { "durability": 60, "timeLimit": 10 } },
+    { "id": 13, "chapter": 2, "name": "厨房探险 3", "gameType": "paper", "instruction": "向下划动扒拉厕纸！", "listText": "厨房厕纸", "status": "locked", "difficulty": 1, "config": { "durability": 60, "timeLimit": 10 } },
+    { "id": 14, "chapter": 2, "name": "厨房探险 4", "gameType": "cup", "instruction": "滑动将杯子推落桌面！", "listText": "厨房推杯", "status": "locked", "difficulty": 1, "config": { "cupCount": 3, "timeLimit": 10 } },
+    { "id": 15, "chapter": 2, "name": "厨房探险 5", "gameType": "bubble", "instruction": "点击戳破所有气泡！", "listText": "厨房泡泡", "status": "locked", "difficulty": 1, "config": { "bubbleCount": 40, "timeLimit": 20 } },
+    { "id": 16, "chapter": 2, "name": "厨房探险 6", "gameType": "fly", "instruction": "快速点击消灭苍蝇！", "listText": "苍蝇大军", "status": "locked", "difficulty": 2, "config": { "flyCount": 5, "timeLimit": 10 } },
+    { "id": 17, "chapter": 2, "name": "厨房探险 7", "gameType": "sofa", "instruction": "滑动抓挠沙发！", "listText": "厨房破坏", "status": "locked", "difficulty": 2, "config": { "durability": 80, "timeLimit": 10 } },
+    { "id": 18, "chapter": 2, "name": "厨房探险 8", "gameType": "paper", "instruction": "向下划动扒拉厕纸！", "listText": "厨房卷纸", "status": "locked", "difficulty": 2, "config": { "durability": 80, "timeLimit": 10 } },
+    { "id": 19, "chapter": 2, "name": "厨房探险 9", "gameType": "cup", "instruction": "滑动将杯子推落桌面！", "listText": "厨房滑杯", "status": "locked", "difficulty": 2, "config": { "cupCount": 4, "timeLimit": 10 } },
+    { "id": 20, "chapter": 2, "name": "厨房探险 10", "gameType": "bubble", "instruction": "点击戳破所有气泡！", "listText": "厨房挑战", "status": "locked", "difficulty": 2, "config": { "bubbleCount": 60, "timeLimit": 20 } },
+
+    { "id": 21, "chapter": 3, "name": "卧室探险 1", "gameType": "fly", "instruction": "快速点击消灭苍蝇！", "listText": "卧室苍蝇", "status": "locked", "difficulty": 1, "config": { "flyCount": 3, "timeLimit": 10 } },
+    { "id": 22, "chapter": 3, "name": "卧室探险 2", "gameType": "sofa", "instruction": "滑动抓挠沙发！", "listText": "卧室挠痒", "status": "locked", "difficulty": 1, "config": { "durability": 60, "timeLimit": 10 } },
+    { "id": 23, "chapter": 3, "name": "卧室探险 3", "gameType": "paper", "instruction": "向下划动扒拉厕纸！", "listText": "卧室厕纸", "status": "locked", "difficulty": 1, "config": { "durability": 60, "timeLimit": 10 } },
+    { "id": 24, "chapter": 3, "name": "卧室探险 4", "gameType": "cup", "instruction": "滑动将杯子推落桌面！", "listText": "卧室推杯", "status": "locked", "difficulty": 1, "config": { "cupCount": 3, "timeLimit": 10 } },
+    { "id": 25, "chapter": 3, "name": "卧室探险 5", "gameType": "bubble", "instruction": "点击戳破所有气泡！", "listText": "卧室泡泡", "status": "locked", "difficulty": 1, "config": { "bubbleCount": 40, "timeLimit": 20 } },
+    { "id": 26, "chapter": 3, "name": "卧室探险 6", "gameType": "fly", "instruction": "快速点击消灭苍蝇！", "listText": "卧室围攻", "status": "locked", "difficulty": 2, "config": { "flyCount": 5, "timeLimit": 10 } },
+    { "id": 27, "chapter": 3, "name": "卧室探险 7", "gameType": "sofa", "instruction": "滑动抓挠沙发！", "listText": "卧室破坏", "status": "locked", "difficulty": 2, "config": { "durability": 80, "timeLimit": 10 } },
+    { "id": 28, "chapter": 3, "name": "卧室探险 8", "gameType": "paper", "instruction": "向下划动扒拉厕纸！", "listText": "卧室卷纸", "status": "locked", "difficulty": 2, "config": { "durability": 80, "timeLimit": 10 } },
+    { "id": 29, "chapter": 3, "name": "卧室探险 9", "gameType": "cup", "instruction": "滑动将杯子推落桌面！", "listText": "卧室滑杯", "status": "locked", "difficulty": 2, "config": { "cupCount": 4, "timeLimit": 10 } },
+    { "id": 30, "chapter": 3, "name": "卧室探险 10", "gameType": "bubble", "instruction": "点击戳破所有气泡！", "listText": "卧室挑战", "status": "locked", "difficulty": 2, "config": { "bubbleCount": 60, "timeLimit": 20 } },
+
+    { "id": 31, "chapter": 4, "name": "卫生间探险 1", "gameType": "fly", "instruction": "快速点击消灭苍蝇！", "listText": "卫生间苍蝇", "status": "locked", "difficulty": 1, "config": { "flyCount": 3, "timeLimit": 10 } },
+    { "id": 32, "chapter": 4, "name": "卫生间探险 2", "gameType": "sofa", "instruction": "滑动抓挠沙发！", "listText": "卫生间挠痒", "status": "locked", "difficulty": 1, "config": { "durability": 60, "timeLimit": 10 } },
+    { "id": 33, "chapter": 4, "name": "卫生间探险 3", "gameType": "paper", "instruction": "向下划动扒拉厕纸！", "listText": "卫生间厕纸", "status": "locked", "difficulty": 1, "config": { "durability": 60, "timeLimit": 10 } },
+    { "id": 34, "chapter": 4, "name": "卫生间探险 4", "gameType": "cup", "instruction": "滑动将杯子推落桌面！", "listText": "卫生间推杯", "status": "locked", "difficulty": 1, "config": { "cupCount": 3, "timeLimit": 10 } },
+    { "id": 35, "chapter": 4, "name": "卫生间探险 5", "gameType": "bubble", "instruction": "点击戳破所有气泡！", "listText": "卫生间泡泡", "status": "locked", "difficulty": 1, "config": { "bubbleCount": 40, "timeLimit": 20 } },
+    { "id": 36, "chapter": 4, "name": "卫生间探险 6", "gameType": "fly", "instruction": "快速点击消灭苍蝇！", "listText": "卫生间围攻", "status": "locked", "difficulty": 2, "config": { "flyCount": 5, "timeLimit": 10 } },
+    { "id": 37, "chapter": 4, "name": "卫生间探险 7", "gameType": "sofa", "instruction": "滑动抓挠沙发！", "listText": "卫生间破坏", "status": "locked", "difficulty": 2, "config": { "durability": 80, "timeLimit": 10 } },
+    { "id": 38, "chapter": 4, "name": "卫生间探险 8", "gameType": "paper", "instruction": "向下划动扒拉厕纸！", "listText": "卫生间卷纸", "status": "locked", "difficulty": 2, "config": { "durability": 80, "timeLimit": 10 } },
+    { "id": 39, "chapter": 4, "name": "卫生间探险 9", "gameType": "cup", "instruction": "滑动将杯子推落桌面！", "listText": "卫生间滑杯", "status": "locked", "difficulty": 2, "config": { "cupCount": 4, "timeLimit": 10 } },
+    { "id": 40, "chapter": 4, "name": "卫生间探险 10", "gameType": "bubble", "instruction": "点击戳破所有气泡！", "listText": "卫生间挑战", "status": "locked", "difficulty": 2, "config": { "bubbleCount": 60, "timeLimit": 20 } },
+
+    { "id": 41, "chapter": 5, "name": "阳台探险 1", "gameType": "fly", "instruction": "快速点击消灭苍蝇！", "listText": "阳台苍蝇", "status": "locked", "difficulty": 1, "config": { "flyCount": 3, "timeLimit": 10 } },
+    { "id": 42, "chapter": 5, "name": "阳台探险 2", "gameType": "sofa", "instruction": "滑动抓挠沙发！", "listText": "阳台挠痒", "status": "locked", "difficulty": 1, "config": { "durability": 60, "timeLimit": 10 } },
+    { "id": 43, "chapter": 5, "name": "阳台探险 3", "gameType": "paper", "instruction": "向下划动扒拉厕纸！", "listText": "阳台厕纸", "status": "locked", "difficulty": 1, "config": { "durability": 60, "timeLimit": 10 } },
+    { "id": 44, "chapter": 5, "name": "阳台探险 4", "gameType": "cup", "instruction": "滑动将杯子推落桌面！", "listText": "阳台推杯", "status": "locked", "difficulty": 1, "config": { "cupCount": 3, "timeLimit": 10 } },
+    { "id": 45, "chapter": 5, "name": "阳台探险 5", "gameType": "bubble", "instruction": "点击戳破所有气泡！", "listText": "阳台泡泡", "status": "locked", "difficulty": 1, "config": { "bubbleCount": 40, "timeLimit": 20 } },
+    { "id": 46, "chapter": 5, "name": "阳台探险 6", "gameType": "fly", "instruction": "快速点击消灭苍蝇！", "listText": "阳台围攻", "status": "locked", "difficulty": 3, "config": { "flyCount": 8, "timeLimit": 10 } },
+    { "id": 47, "chapter": 5, "name": "阳台探险 7", "gameType": "sofa", "instruction": "滑动抓挠沙发！", "listText": "阳台破坏", "status": "locked", "difficulty": 3, "config": { "durability": 120, "timeLimit": 10 } },
+    { "id": 48, "chapter": 5, "name": "阳台探险 8", "gameType": "paper", "instruction": "向下划动扒拉厕纸！", "listText": "阳台卷纸", "status": "locked", "difficulty": 3, "config": { "durability": 100, "timeLimit": 10 } },
+    { "id": 49, "chapter": 5, "name": "阳台探险 9", "gameType": "cup", "instruction": "滑动将杯子推落桌面！", "listText": "阳台滑杯", "status": "locked", "difficulty": 3, "config": { "cupCount": 6, "timeLimit": 10 } },
+    { "id": 50, "chapter": 5, "name": "阳台探险 10", "gameType": "bubble", "instruction": "点击戳破所有气泡！", "listText": "阳台终极挑战", "status": "locked", "difficulty": 3, "config": { "bubbleCount": 80, "timeLimit": 20 } }
   ]
 }

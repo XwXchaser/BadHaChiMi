@@ -2,16 +2,20 @@
 
 // 打苍蝇游戏实现
 window.FlyHunterGame = (function() {
-    // 苍蝇图片路径
+    // 苍蝇图片路径 - 使用新的美术资源
     var FLY_FRAMES = [
-        'assets/fly_fly1.png',
-        'assets/fly_fly2.png',
-        'assets/fly_fly3.png'
+        'assets/KillBugsGame_FlyBugs_0.png',
+        'assets/KillBugsGame_FlyBugs_1.png',
+        'assets/KillBugsGame_FlyBugs_2.png'
     ];
-    var FLY_IDLE = 'assets/fly_idle.png';
+    // 使用第一帧作为静止帧（没有单独的 idle 图片）
+    var FLY_IDLE = 'assets/KillBugsGame_FlyBugs_0.png';
     
     // 游戏背景
     var GAME_BG = 'assets/cake_on_table_bg.png';
+    
+    // 猫手素材（用于拍击特效）
+    var CAT_HAND = 'assets/TissueGame_Cat_Hand.png';
 
     // 苍蝇状态
     var FLY_STATE = {
@@ -275,9 +279,6 @@ window.FlyHunterGame = (function() {
                 flyData.x += flyData.direction.x * flyData.speed;
                 flyData.y += flyData.direction.y * flyData.speed;
 
-                // 计算旋转角度：使苍蝇头部朝向飞行方向
-                flyData.rotation = Math.atan2(flyData.direction.y, flyData.direction.x);
-
                 // 检查边界，碰到边界反弹
                 var maxX = this.gameArea.clientWidth - 40;
                 var maxY = this.gameArea.clientHeight - 40;
@@ -295,8 +296,10 @@ window.FlyHunterGame = (function() {
 
                 fly.style.left = flyData.x + 'px';
                 fly.style.top = flyData.y + 'px';
-                // 旋转苍蝇图片，使其朝向与飞行方向一致
-                flyImg.style.transform = 'rotate(' + (flyData.rotation * 180 / Math.PI + 90) + 'deg)';
+                // 锁定图片旋转，只根据飞行方向进行水平翻转
+                // 苍蝇默认朝上飞行，当 direction.x < 0 时向左翻转
+                var scaleX = flyData.direction.x < 0 ? -1 : 1;
+                flyImg.style.transform = 'scaleX(' + scaleX + ')';
 
                 // 检查移动时间是否结束
                 if (flyData.moveTime >= flyData.moveDuration) {
@@ -716,6 +719,15 @@ window.ToiletPaperGame = (function() {
 // 游戏管理器 - 管理游戏流程和状态
 
 window.GameManager = (function() {
+    // 游戏类型图标映射
+    var GAME_ICONS = {
+        'fly': '🪰',
+        'sofa': '🛋️',
+        'paper': '🧻',
+        'cup': '🥤',
+        'bubble': '🫧'
+    };
+    
     function GameManager() {
         this.currentGame = null;
         this.currentLevel = null;
@@ -723,24 +735,48 @@ window.GameManager = (function() {
         this.timeLeft = 10000;
         this.startTime = 0;
         
-        // 关卡配置 - 打苍蝇、破坏大王、拉卷纸
-        this.levels = [
-            { id: 1, type: 'fly', name: '打苍蝇！', icon: '🪰', difficulty: 1, target: 5 },
-            { id: 2, type: 'destroy', name: '破坏沙发！', icon: '🛋️', difficulty: 1, objectType: 'sofa' },
-            { id: 3, type: 'toiletPaper', name: '拉卷纸！', icon: '🧻', difficulty: 1 }
-        ];
+        // 关卡配置从 levels.json 加载
+        this.levels = [];
+        this.chapters = [];
         
         // 玩家进度
         this.playerProgress = Utils.storage.get('playerProgress', {
             unlockedLevels: [1],
             completedLevels: [],
-            currentLayer: 1
+            currentChapter: 1
         });
     }
     
+    // 从 levels.json 加载关卡配置
+    GameManager.prototype.loadLevelsConfig = function() {
+        var self = this;
+        return new Promise(function(resolve, reject) {
+            fetch('data/levels.json')
+                .then(function(response) { return response.json(); })
+                .then(function(data) {
+                    self.levels = data.levels || [];
+                    self.chapters = data.chapters || [];
+                    console.log('[GameManager] 加载关卡配置：', self.levels.length, '个关卡');
+                    resolve();
+                })
+                .catch(function(error) {
+                    console.error('[GameManager] 加载关卡配置失败:', error);
+                    // 使用默认配置
+                    self.levels = [];
+                    self.chapters = [];
+                    resolve();
+                });
+        });
+    };
+    
     GameManager.prototype.init = function() {
+        var self = this;
         this.setupUI();
-        this.renderShoppingList();
+        
+        // 加载关卡配置
+        this.loadLevelsConfig().then(function() {
+            self.renderShoppingList();
+        });
     };
     
     GameManager.prototype.setupUI = function() {
@@ -804,21 +840,22 @@ window.GameManager = (function() {
         
         container.innerHTML = '';
         
-        var storyTexts = [
-            '买个新苍蝇拍',
-            '买个新沙发',
-            '买个新卷纸架'
-        ];
-        
         var self = this;
         
-        this.levels.forEach(function(level, index) {
+        if (this.levels.length === 0) {
+            container.innerHTML = '<div class="empty-message">加载中...</div>';
+            return;
+        }
+        
+        this.levels.forEach(function(level) {
             var item = document.createElement('div');
             item.className = 'list-item';
             
             var isUnlocked = self.playerProgress.unlockedLevels.indexOf(level.id) !== -1;
             var isCompleted = self.playerProgress.completedLevels.indexOf(level.id) !== -1;
-            var isHardMode = level.difficulty === 2;
+            var difficulty = level.difficulty || 1;
+            var isHardMode = difficulty >= 2;
+            var isExpertMode = difficulty === 3;
             
             if (!isUnlocked) {
                 item.classList.add('locked');
@@ -829,12 +866,16 @@ window.GameManager = (function() {
             if (isHardMode) {
                 item.classList.add('hard-mode');
             }
+            if (isExpertMode) {
+                item.classList.add('expert-mode');
+            }
             
-            var storyText = storyTexts[index % storyTexts.length];
-            var difficultyText = isHardMode ? '（高难度）' : '';
+            // 获取游戏类型图标
+            var gameIcon = GAME_ICONS[level.gameType] || GAME_ICONS[level.type] || '🎮';
+            var difficultyText = isExpertMode ? '（专家）' : (isHardMode ? '（困难）' : '');
             
-            item.innerHTML = '<div class="item-text">' + level.icon + ' ' + level.name + '</div>' +
-                            '<div class="item-difficulty">' + storyText + difficultyText + '</div>';
+            item.innerHTML = '<div class="item-text">' + gameIcon + ' ' + level.name + '</div>' +
+                            '<div class="item-difficulty">' + level.listText + difficultyText + '</div>';
             
             if (isUnlocked && !isCompleted) {
                 item.addEventListener('click', function() {
@@ -852,35 +893,48 @@ window.GameManager = (function() {
         this.showScreen('game');
         
         // 设置指令
-        this.instructionEl.textContent = level.name;
+        this.instructionEl.textContent = level.instruction || level.name;
         
         // 重置进度显示
         if (this.progressDisplayEl) {
             this.progressDisplayEl.textContent = '';
         }
         
-        // 创建游戏实例
-        var isHardMode = level.difficulty === 2;
+        // 获取难度配置
+        var config = level.config || {};
+        var difficulty = level.difficulty || 1;
         
-        if (level.type === 'fly') {
+        // 创建游戏实例
+        if (level.gameType === 'fly' || level.type === 'fly') {
             this.currentGame = new FlyHunterGame(this.gameArea, function(success) {
                 self.onGameComplete(success);
             });
-            this.currentGame.start(isHardMode, this.progressDisplayEl);
-        } else if (level.type === 'destroy') {
+            this.currentGame.start(config, this.progressDisplayEl);
+        } else if (level.gameType === 'sofa' || level.type === 'destroy') {
             this.currentGame = new DestroyerGame(this.gameArea, function(success) {
                 self.onGameComplete(success);
             });
-            this.currentGame.start(isHardMode, this.progressDisplayEl, level.objectType);
-        } else if (level.type === 'toiletPaper') {
-            this.currentGame = new ToiletPaperGame(this.gameArea, function(success) {
+            this.currentGame.start(config, this.progressDisplayEl, 'sofa');
+        } else if (level.gameType === 'paper' || level.type === 'toiletPaper') {
+            this.currentGame = new PaperGame(this.gameArea, function(success) {
                 self.onGameComplete(success);
             });
-            this.currentGame.start(isHardMode, this.progressDisplayEl);
+            this.currentGame.start(config, this.progressDisplayEl);
+        } else if (level.gameType === 'cup') {
+            this.currentGame = new CupGame(this.gameArea, function(success) {
+                self.onGameComplete(success);
+            });
+            this.currentGame.start(config, this.progressDisplayEl);
+        } else if (level.gameType === 'bubble') {
+            this.currentGame = new BubbleGame(this.gameArea, function(success) {
+                self.onGameComplete(success);
+            });
+            this.currentGame.start(config, this.progressDisplayEl);
         }
         
-        // 启动计时器（统一 10 秒）
-        this.startTimer();
+        // 启动计时器
+        var timeLimit = (config && config.timeLimit) ? config.timeLimit * 1000 : 10000;
+        this.startTimer(timeLimit);
     };
     
     GameManager.prototype.startTimer = function(duration) {
@@ -945,20 +999,26 @@ window.GameManager = (function() {
         var imageEl = document.getElementById('success-image');
         var captionEl = document.getElementById('success-caption');
         
-        if (this.currentLevel.type === 'fly') {
+        var gameType = this.currentLevel.gameType || this.currentLevel.type;
+        
+        if (gameType === 'fly') {
             imageEl.textContent = '🪰💥';
             captionEl.textContent = '苍蝇全灭！';
-        } else if (this.currentLevel.type === 'destroy') {
-            if (this.currentLevel.objectType === 'sofa') {
-                imageEl.textContent = '🛋️💥';
-                captionEl.textContent = '沙发报废！';
-            } else {
-                imageEl.textContent = '🧻💥';
-                captionEl.textContent = '厕纸散落！';
-            }
-        } else if (this.currentLevel.type === 'toiletPaper') {
+        } else if (gameType === 'sofa') {
+            imageEl.textContent = '🛋️💥';
+            captionEl.textContent = '沙发报废！';
+        } else if (gameType === 'paper') {
             imageEl.textContent = '🧻💥';
-            captionEl.textContent = '卷纸拉光！';
+            captionEl.textContent = '厕纸散落！';
+        } else if (gameType === 'cup') {
+            imageEl.textContent = '🥤💥';
+            captionEl.textContent = '杯子落桌！';
+        } else if (gameType === 'bubble') {
+            imageEl.textContent = '🫧💥';
+            captionEl.textContent = '泡泡全破！';
+        } else {
+            imageEl.textContent = '🎉';
+            captionEl.textContent = '任务完成！';
         }
         
         this.showScreen('success');
@@ -985,6 +1045,15 @@ window.GameManager = (function() {
         if (nextLevelId <= maxLevelId && this.playerProgress.unlockedLevels.indexOf(nextLevelId) === -1) {
             this.playerProgress.unlockedLevels.push(nextLevelId);
             Utils.storage.set('playerProgress', this.playerProgress);
+        }
+        
+        // 如果当前是章节的最后一关，解锁下一章的第一关
+        if (this.currentLevel.chapter) {
+            var nextLevel = this.levels.find(function(l) { return l.id === nextLevelId; });
+            if (nextLevel && nextLevel.chapter !== this.currentLevel.chapter) {
+                // 新章节的第一关已解锁
+                console.log('[GameManager] 解锁新章节：' + nextLevel.chapter);
+            }
         }
     };
     
